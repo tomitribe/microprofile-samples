@@ -21,18 +21,52 @@
 
   <parent>
     <groupId>org.tomitribe.microprofile</groupId>
-    <artifactId>microprofile-samples</artifactId>
+    <artifactId>microprofile-samples-config</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>microprofile-samples-config</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>config-source-database</artifactId>
+  <packaging>war</packaging>
 
-  <name>MicroProfile Samples :: Config</name>
+  <name>MicroProfile Samples :: Config :: Config Source Database</name>
 
-  <modules>
-    <module>config-source-static</module>
-    <module>config-source-database</module>
-  </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.tomee.maven</groupId>
+        <artifactId>tomee-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>commons-dbutils</groupId>
+      <artifactId>commons-dbutils</artifactId>
+      <version>1.7</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>apache-tomee</artifactId>
+      <type>zip</type>
+      <classifier>microprofile</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>arquillian-tomee-remote</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.arquillian.testng</groupId>
+      <artifactId>arquillian-testng-container</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>

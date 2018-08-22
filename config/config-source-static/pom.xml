@@ -28,7 +28,7 @@
   <artifactId>config-source-static</artifactId>
   <packaging>war</packaging>
 
-  <name>MicroProfile Samples :: Config :: Config Static Source</name>
+  <name>MicroProfile Samples :: Config :: Config Source Static</name>
 
   <build>
     <plugins>
@@ -41,17 +41,15 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.tomee</groupId>
-      <artifactId>apache-tomee</artifactId>
-      <version>${version.tomee}</version>
-      <type>zip</type>
-      <classifier>microprofile</classifier>
-      <scope>test</scope>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>apache-tomee</artifactId>
+      <type>zip</type>
+      <classifier>microprofile</classifier>
     </dependency>
 
     <dependency>

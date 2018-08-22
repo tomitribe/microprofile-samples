@@ -56,15 +56,6 @@
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <configuration>
-            <source>${version.java}</source>
-            <target>${version.java}</target>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-war-plugin</artifactId>
           <configuration>
             <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -93,6 +84,17 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${version.java}</source>
+          <target>${version.java}</target>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
   <dependencyManagement>
@@ -109,6 +111,15 @@
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
         <version>6.8.21</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.tomee</groupId>
+        <artifactId>apache-tomee</artifactId>
+        <version>${version.tomee}</version>
+        <type>zip</type>
+        <classifier>microprofile</classifier>
         <scope>test</scope>
       </dependency>
 
