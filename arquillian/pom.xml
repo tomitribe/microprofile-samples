@@ -21,51 +21,17 @@
 
   <parent>
     <groupId>org.tomitribe.microprofile</groupId>
-    <artifactId>microprofile-samples-config</artifactId>
+    <artifactId>microprofile-samples</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>config-source-static</artifactId>
-  <packaging>war</packaging>
+  <artifactId>arquillian</artifactId>
+  <packaging>pom</packaging>
 
-  <name>MicroProfile Samples :: Config :: Config Source Static</name>
+  <name>MicroProfile Samples :: Arquillian</name>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.tomee.maven</groupId>
-        <artifactId>tomee-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.tomee</groupId>
-      <artifactId>apache-tomee</artifactId>
-      <type>zip</type>
-      <classifier>microprofile</classifier>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.tomee</groupId>
-      <artifactId>arquillian-tomee-remote</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss.arquillian.testng</groupId>
-      <artifactId>arquillian-testng-container</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>arquillian-maven-importer</artifactId>
-    </dependency>
-  </dependencies>
+  <modules>
+    <module>maven-importer</module>
+  </modules>
 
 </project>

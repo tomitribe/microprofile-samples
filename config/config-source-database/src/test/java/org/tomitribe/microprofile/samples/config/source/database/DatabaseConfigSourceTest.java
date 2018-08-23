@@ -17,12 +17,7 @@
 package org.tomitribe.microprofile.samples.config.source.database;
 
 import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.spi.ConfigSource;
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.testng.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
@@ -31,19 +26,6 @@ import static org.testng.Assert.assertEquals;
 
 @Test
 public class DatabaseConfigSourceTest extends Arquillian {
-    @Deployment
-    public static WebArchive deploy() {
-        return ShrinkWrap
-                .create(WebArchive.class, "config-source-database.war")
-                .addClass(DatabaseConfigSource.class)
-                .addAsServiceProvider(ConfigSource.class, DatabaseConfigSource.class)
-                .addClass(ApplicationBean.class)
-                .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml")
-                                     .resolve("commons-dbutils:commons-dbutils")
-                                     .withTransitivity().asFile())
-                ;
-    }
-
     @Inject
     private Config config;
     @Inject

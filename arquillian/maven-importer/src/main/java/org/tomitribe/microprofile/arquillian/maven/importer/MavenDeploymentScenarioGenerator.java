@@ -14,34 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tomitribe.microprofile.samples.config.source;
+package org.tomitribe.microprofile.arquillian.maven.importer;
 
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.spi.ConfigSource;
+import org.jboss.arquillian.container.spi.client.deployment.DeploymentDescription;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.testng.Arquillian;
+import org.jboss.arquillian.container.test.impl.client.deployment.AnnotationDeploymentScenarioGenerator;
+import org.jboss.arquillian.test.spi.TestClass;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.archive.importer.MavenImporter;
-import org.testng.annotations.Test;
 
-import javax.inject.Inject;
+import java.util.List;
 
-import static org.testng.Assert.assertEquals;
+public class MavenDeploymentScenarioGenerator extends AnnotationDeploymentScenarioGenerator {
+    @Override
+    public List<DeploymentDescription> generate(final TestClass testClass) {
+        final List<DeploymentDescription> original = super.generate(testClass);
+        if (!original.isEmpty()) {
+            return original;
+        }
 
-@Test
-public class StaticConfigSourceTest extends Arquillian {
-    @Inject
-    private Config config;
-    @Inject
-    private ApplicationBean applicationBean;
+        return super.generate(new TestClass(MavenDeploymentScenarioGenerator.class));
+    }
 
-    @Test
-    public void testConfigSourceStatic() throws Exception {
-        assertEquals(config.getValue("application.currency", String.class), "€");
-        assertEquals(config.getValue("application.country", String.class), "Portugal");
-
-        assertEquals(applicationBean.getApplicationCurrrency(), "€");
-        assertEquals(applicationBean.getApplicationCountry(), "Portugal");
+    @Deployment
+    public static WebArchive deploy() {
+        return ShrinkWrap.create(WebArchive.class);
     }
 }
