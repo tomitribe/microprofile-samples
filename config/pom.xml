@@ -34,6 +34,7 @@
     <module>config-source-static</module>
     <module>config-source-database</module>
     <module>custom-converter</module>
+    <module>properties-override</module>
   </modules>
 
 </project>
