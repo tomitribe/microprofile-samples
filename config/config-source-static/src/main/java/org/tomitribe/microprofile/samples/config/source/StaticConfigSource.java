@@ -26,8 +26,8 @@ public class StaticConfigSource implements ConfigSource {
     private static final Map<String, String> configuration = new HashMap<>();
 
     static {
-        configuration.put("application.currency", "€");
-        configuration.put("application.country", "Portugal");
+        configuration.put("application.currency", "Euro");
+        configuration.put("application.country", "PT");
     }
 
     @Override

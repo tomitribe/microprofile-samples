@@ -17,6 +17,7 @@
 package org.tomitribe.microprofile.samples.config.custom.converter;
 
 import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.arquillian.testng.Arquillian;
 import org.testng.annotations.Test;
 
@@ -37,5 +38,8 @@ public class ConverterTest extends Arquillian {
 
         assertEquals(applicationBean.getApplicationCurrrency(), Currency.EURO);
         assertEquals(applicationBean.getApplicationCountry(), Country.PT);
+
+        assertEquals(ConfigProvider.getConfig().getValue("application.currency", Currency.class), Currency.EURO);
+        assertEquals(ConfigProvider.getConfig().getValue("application.country", Country.class), Country.PT);
     }
 }

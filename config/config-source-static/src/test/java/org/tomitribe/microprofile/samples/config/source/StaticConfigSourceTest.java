@@ -17,6 +17,7 @@
 package org.tomitribe.microprofile.samples.config.source;
 
 import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.testng.Arquillian;
@@ -38,10 +39,13 @@ public class StaticConfigSourceTest extends Arquillian {
 
     @Test
     public void testConfigSourceStatic() throws Exception {
-        assertEquals(config.getValue("application.currency", String.class), "€");
-        assertEquals(config.getValue("application.country", String.class), "Portugal");
+        assertEquals(config.getValue("application.currency", String.class), "Euro");
+        assertEquals(config.getValue("application.country", String.class), "PT");
 
-        assertEquals(applicationBean.getApplicationCurrrency(), "€");
-        assertEquals(applicationBean.getApplicationCountry(), "Portugal");
+        assertEquals(applicationBean.getApplicationCurrrency(), "Euro");
+        assertEquals(applicationBean.getApplicationCountry(), "PT");
+
+        assertEquals(ConfigProvider.getConfig().getValue("application.currency", String.class), "Euro");
+        assertEquals(ConfigProvider.getConfig().getValue("application.country", String.class), "PT");
     }
 }
