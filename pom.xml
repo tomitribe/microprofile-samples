@@ -166,5 +166,6 @@
   <modules>
     <module>arquillian</module>
     <module>config</module>
+    <module>fault-tolerance</module>
   </modules>
 </project>
