@@ -16,11 +16,15 @@
  */
 package org.tomitribe.microprofile.samples.fault.tolerance.fallback;
 
+import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.arquillian.testng.Arquillian;
 import org.testng.annotations.Test;
-import org.tomitribe.microprofile.samples.fault.tolerance.fallback.MovieResource;
 
 import javax.inject.Inject;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import java.net.URL;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
@@ -33,5 +37,17 @@ public class MovieResourceTest extends Arquillian {
     @Test
     public void testFindAll() throws Exception {
         assertEquals(movieResource.findAll(), Stream.of("The Terminator", "The Matrix", "Rambo").collect(toList()));
+    }
+
+    @Test
+    public void testFindAllResource(@ArquillianResource final URL base) throws Exception {
+        final List<String> movies =
+                ClientBuilder.newClient()
+                             .target(base.toURI())
+                             .path("movies")
+                             .request()
+                             .get(new GenericType<List<String>>() {});
+
+        assertEquals(movies, Stream.of("The Terminator", "The Matrix", "Rambo").collect(toList()));
     }
 }
