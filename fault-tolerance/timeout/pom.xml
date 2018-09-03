@@ -21,20 +21,51 @@
 
   <parent>
     <groupId>org.tomitribe.microprofile</groupId>
-    <artifactId>microprofile-samples</artifactId>
+    <artifactId>microprofile-samples-fault-tolerance</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>microprofile-samples-fault-tolerance</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>timeout</artifactId>
+  <packaging>war</packaging>
 
-  <name>MicroProfile Samples :: Fault Tolerance</name>
+  <name>MicroProfile Samples :: Fault Tolerance :: Timeout</name>
 
-  <modules>
-    <module>circuit-breaker</module>
-    <module>fallback</module>
-    <module>retry</module>
-    <module>timeout</module>
-  </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.tomee.maven</groupId>
+        <artifactId>tomee-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>apache-tomee</artifactId>
+      <type>zip</type>
+      <classifier>microprofile</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>arquillian-tomee-remote</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.arquillian.testng</groupId>
+      <artifactId>arquillian-testng-container</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>arquillian-maven-importer</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>
