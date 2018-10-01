@@ -32,6 +32,11 @@ import java.util.stream.Stream;
 public class MovieResource {
     static AtomicInteger executions = new AtomicInteger(0);
 
+    /**
+     * Will only allow 3 concurrent requests. Following ones will fail.
+     *
+     * @return the list of movies
+     */
     @GET
     @Bulkhead(value = 3)
     public List<String> findAll() {
