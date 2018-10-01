@@ -31,6 +31,15 @@ import java.util.stream.Stream;
 public class MovieResource {
     static AtomicInteger requests = new AtomicInteger(0);
 
+    /**
+     * This example uses the default values of the circuit breaker.
+     * It will keep a window of 3 requests and if half of them fail because of any exception,
+     * the circuit will be opened (new requests fail right away).
+     * After 5 seconds, the circuit will be half-open for request trials, after one success
+     * it will be closed (normal operation).
+     *
+     * @return The list of movies
+     */
     @GET
     @CircuitBreaker(requestVolumeThreshold = 3)
     public List<String> findAll() {
