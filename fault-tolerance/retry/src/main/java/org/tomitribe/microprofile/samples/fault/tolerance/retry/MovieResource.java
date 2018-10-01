@@ -31,6 +31,12 @@ import java.util.stream.Stream;
 public class MovieResource {
     static AtomicInteger retries = new AtomicInteger(0);
 
+    /**
+     * On a BusinessException, it will retry 5 times, without delay.
+     * On the last request, the exception will not be thrown and the request will succeed.
+     *
+     * @return The movies list
+     */
     @GET
     @Retry(maxRetries = 5, retryOn = BusinessException.class)
     public List<String> findAll() {

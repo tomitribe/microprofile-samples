@@ -37,6 +37,8 @@ public class MovieResourceTest extends Arquillian {
     @Test
     public void testFindAll() throws Exception {
         assertEquals(Stream.of("The Terminator", "The Matrix", "Rambo").collect(toList()), movieResource.findAll());
+        assertEquals(Stream.of("The Terminator", "The Matrix", "Rambo").collect(toList()), movieResource.findAll());
+        assertEquals(Stream.of("The Terminator", "The Matrix", "Rambo").collect(toList()), movieResource.findAll());
     }
 
     @Test

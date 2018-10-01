@@ -14,42 +14,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tomitribe.microprofile.samples.fault.tolerance.bulkhead;
+package org.tomitribe.microprofile.samples.fault.tolerance.timeout_retry_fallback;
 
-import org.eclipse.microprofile.faulttolerance.Bulkhead;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Retry;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @ApplicationScoped
 @Path("/movies")
 public class MovieResource {
-    static AtomicInteger executions = new AtomicInteger(0);
 
     /**
-     * Will only allow 3 concurrent requests. Following ones will fail.
+     * Composite example where we retry 2 times after a timeout of 1 second. We fallback to the
+     * MovieFindAllFallbackHandler if we still get exceptions after the last retry.
      *
-     * @return the list of movies
+     * @return the movies list
      */
     @GET
-    @Bulkhead(value = 3)
+    @Timeout // default 1 sec.
+    @Retry(delay = 1000, maxRetries = 2) // default to all Exception
+    @Fallback(MovieFindAllFallbackHandler.class)
     public List<String> findAll() {
-        final int execution = executions.addAndGet(1);
 
+        System.out.println("MovieResource.findAll()");
         try {
-            System.out.println("Execution " + execution);
-            TimeUnit.SECONDS.sleep(30);
+            TimeUnit.SECONDS.sleep(2);
         } catch (final InterruptedException e) {
-
+            e.printStackTrace();
         }
 
-        System.out.println("Finished Execution " + execution);
         return Stream.of("The Terminator", "The Matrix", "Rambo").collect(Collectors.toList());
     }
 }

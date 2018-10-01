@@ -29,6 +29,12 @@ import java.util.stream.Stream;
 @ApplicationScoped
 @Path("/movies")
 public class MovieResource {
+
+    /**
+     * After a default timeout of 1 seccond, the request will fail with TimeoutException.
+     *
+     * @return the movies list
+     */
     @GET
     @Timeout
     public List<String> findAll() {

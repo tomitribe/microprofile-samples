@@ -36,6 +36,7 @@
     <module>retry</module>
     <module>timeout</module>
     <module>bulkhead</module>
+    <module>timeout-retry-fallback</module>
   </modules>
 
 </project>

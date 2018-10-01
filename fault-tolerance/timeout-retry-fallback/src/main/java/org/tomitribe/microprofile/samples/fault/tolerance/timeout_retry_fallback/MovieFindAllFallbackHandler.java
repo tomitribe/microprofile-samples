@@ -14,30 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.tomitribe.microprofile.samples.fault.tolerance.fallback;
+package org.tomitribe.microprofile.samples.fault.tolerance.timeout_retry_fallback;
 
-import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
-import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.ExecutionContext;
+import org.eclipse.microprofile.faulttolerance.FallbackHandler;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import java.util.List;
+import java.util.stream.Stream;
 
-@ApplicationScoped
-@Path("/movies")
-public class MovieResource {
+import static java.util.stream.Collectors.toList;
 
-    /**
-     * The circuit breaker will open the circuit right away because of the business exception.
-     * Because we are declaring an alternative execution path, the fallback, the client still gets a response.
-     *
-     * @return
-     */
-    @GET
-    @CircuitBreaker(failOn = BusinessException.class)
-    @Fallback(MovieFindAllFallbackHandler.class)
-    public List<String> findAll() {
-        throw new BusinessException();
+public class MovieFindAllFallbackHandler implements FallbackHandler<List<String>> {
+    @Override
+    public List<String> handle(final ExecutionContext context) {
+        System.out.println("MovieFindAllFallbackHandler.handle()");
+        return Stream.of("Fallback movie").collect(toList());
     }
 }
