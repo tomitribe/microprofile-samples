@@ -27,6 +27,13 @@ import java.util.List;
 @ApplicationScoped
 @Path("/movies")
 public class MovieResource {
+
+    /**
+     * The circuit breaker will open the circuit right away because of the business exception.
+     * Because we are declaring an alternative execution path, the fallback, the client still gets a response.
+     *
+     * @return
+     */
     @GET
     @CircuitBreaker(failOn = BusinessException.class)
     @Fallback(MovieFindAllFallbackHandler.class)
