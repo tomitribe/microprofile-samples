@@ -32,6 +32,12 @@ import java.util.stream.Stream;
 @Path("/movies")
 public class MovieResource {
 
+    /**
+     * Composite example where we retry 2 times after a timeout of 1 second. We fallback to the
+     * MovieFindAllFallbackHandler if we still get exceptions after the last retry.
+     *
+     * @return the movies list
+     */
     @GET
     @Timeout // default 1 sec.
     @Retry(delay = 1000, maxRetries = 2) // default to all Exception
