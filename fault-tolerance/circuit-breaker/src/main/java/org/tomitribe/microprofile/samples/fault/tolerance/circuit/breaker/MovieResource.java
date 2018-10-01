@@ -34,7 +34,7 @@ public class MovieResource {
     @GET
     @CircuitBreaker(requestVolumeThreshold = 3)
     public List<String> findAll() {
-        if (requests.getAndAdd(1) < 5) {
+        if (requests.getAndIncrement() < 5) {
             System.out.println("Try " + requests);
             throw new BusinessException();
         }
